@@ -83,7 +83,7 @@ def save_batch_image(clean_images, noisy_images):
 
     noisy_fname = "noisy-images-0000.png"
     save_image(denorm(noisy_images), os.path.join(sample_dir, noisy_fname), nrow=8)
-    print(f"Saving : `{noisy_fname}`")
+    print(f"Saving : `{noisy_fname}`\n\n")
 
 
 def get_fixed_latent():

@@ -93,7 +93,7 @@ def fit(
     discriminator = Discriminator().to(device)
 
     print(f"generator's device: {next(generator.parameters()).device}")
-    print(f"discriminator's device: {next(discriminator.parameters()).device}")
+    print(f"discriminator's device: {next(discriminator.parameters()).device}]\n\n")
 
     # loading state_dict of the generator and discriminator
     # path to file is passed as argument
