@@ -1,6 +1,11 @@
 import torch
 from config import DEVICE, EPOCHS, LR
-from utils import save_samples, save_model_state_dict, get_fixed_latent
+from utils import (
+    save_samples,
+    save_model_state_dict,
+    get_fixed_latent,
+    save_batch_image,
+)
 from models import UnetGenerator, Discriminator
 from criterion import GeneratorLoss, DiscriminatorLoss
 from tqdm.auto import tqdm
@@ -190,10 +195,12 @@ def fit(
 if __name__ == "__main__":
     torch.cuda.empty_cache()
     train_dl = create_train_dataloader()
-    fixed_latent = get_fixed_latent()
+    noisy_latent, clean_latent = get_fixed_latent()
 
     g_criterion = GeneratorLoss(alpha=100)
     d_criterion = DiscriminatorLoss()
+
+    save_batch_image(clean_latent, noisy_latent)
 
     history = fit(
         train_dl=train_dl,
@@ -202,6 +209,6 @@ if __name__ == "__main__":
         g_criterion=g_criterion,
         d_criterion=d_criterion,
         start_idx=1,
-        fixed_latent=fixed_latent,
+        fixed_latent=noisy_latent,
     )
     print(history)

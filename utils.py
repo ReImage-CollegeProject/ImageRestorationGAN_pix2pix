@@ -56,7 +56,7 @@ def save_model_state_dict(state_dict, directory, filename):
 
 
 def save_samples(index, generator, latent_tensors, show=True):
-    sample_dir = "refactored_GAN"
+    sample_dir = "images"
     os.makedirs(sample_dir, exist_ok=True)
 
     fake_images = generator(latent_tensors.to(DEVICE))
@@ -73,8 +73,22 @@ def save_samples(index, generator, latent_tensors, show=True):
         )
 
 
+def save_batch_image(clean_images, noisy_images):
+    sample_dir = "images"
+    os.makedirs(sample_dir, exist_ok=True)
+
+    clean_fname = "clean-images-0000.png"
+    save_image(denorm(clean_images), os.path.join(sample_dir, clean_fname), nrow=8)
+    print(f"Saving : `{clean_fname}`")
+
+    noisy_fname = "noisy-images-0000.png"
+    save_image(denorm(noisy_images), os.path.join(sample_dir, noisy_fname), nrow=8)
+    print(f"Saving : `{noisy_fname}`")
+
+
 def get_fixed_latent():
     fixed_latent = None
-    for noisy, _ in create_test_dataloader():
-        fixed_latent = noisy.to(DEVICE)
-        return fixed_latent
+    for noisy, clean in create_test_dataloader():
+        noisy_latent = noisy.to(DEVICE)
+        clean_latent = clean.to(DEVICE)
+        return noisy_latent, clean_latent
