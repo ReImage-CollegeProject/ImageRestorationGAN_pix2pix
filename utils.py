@@ -62,7 +62,7 @@ def save_samples(index, generator, latent_tensors, show=True):
     fake_images = generator(latent_tensors.to(DEVICE))
     fake_fname = f"generated-images-{index:0=4d}.png"
     save_image(denorm(fake_images), os.path.join(sample_dir, fake_fname), nrow=8)
-    print("Saving : ", fake_fname)
+    print(f"Saving : {fake_fname}\n\n")
 
     if show:
         fig, ax = plt.subplots(figsize=(12, 12))

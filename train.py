@@ -159,7 +159,7 @@ def fit(
 
         # Log losses & scores (last batch)
         print(
-            f"  [+] Epoch [{epoch+1}/{epochs}], loss_g: {g_loss:.4e}, loss_d: {d_loss:.4e}, real_score: {real_score:.4e}, fake_score: {fake_score:.4e}\n\n"
+            f"  [+] Epoch [{epoch+1}/{epochs}], loss_g: {g_loss:.4e}, loss_d: {d_loss:.4e}, real_score: {real_score:.4e}, fake_score: {fake_score:.4e}"
         )
 
         # Save the state dictionaries after every 10th epoch
