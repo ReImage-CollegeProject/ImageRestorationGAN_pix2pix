@@ -1,0 +1,45 @@
+nav{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(4,4,10,1) 15%, rgba(15,15,47,1) 35%, rgba(18,101,119,1) 67%, rgba(17,29,32,1) 86%);
+    border-radius: 3% 15%;
+    position:relative;
+    overflow: hidden;
+    padding: 10px;
+
+}
+
+#navbarScroll a{
+    text-decoration: none !important;
+    color: white !important;
+}
+.btns{
+    margin-right: 5px !important;
+    margin-bottom: 8px;
+}
+.navs{
+    text-decoration: none;
+    margin-right: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: white !important;
+    border:  2px solid aquamarine !important;
+    border-radius: 2% 15%;
+}
+.pseudoElementStyle{
+    content:"";
+    position: absolute;
+    top:97%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color:aqua;
+}
+.navs:hover{
+    background-color: rgb(40, 231, 167) !important;
+    color: black !important;
+
+}
+.pseudoElementStyle:hover{
+    background-color: rgb(196, 62, 154);
+
+}

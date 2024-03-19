@@ -1,0 +1,135 @@
+#landing-div{
+    color: white;
+    margin-top: 5%;
+    padding: 30px 90px 30px 90px;
+}
+#content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#landing-div span{
+    font-size: small;
+    color: aquamarine;
+    line-height: 2;
+}
+#landing-div h1{
+    font-size: 60px;
+    font-family:'Times New Roman', Times, serif;
+    line-height: 0.9;
+}
+#landing-div p:first-of-type{
+    margin-top: 50px;
+
+}
+#landing-div p{
+    font-size: 18px;
+    color: rgb(181, 178, 173);
+    line-height: 0.5;
+}
+#inner{
+    max-width: 600px;
+}
+#image-container{
+    height:450px ;
+    width:550px ;
+}
+
+img{
+    object-fit: cover;
+    height: 400px;
+    width: 600px;
+    border: 2px solid aliceblue;
+    border-radius: 3px 4px;
+    box-shadow:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(44,4,46,1) 0%, rgba(59,10,54,1) 35%, rgba(140,16,82,1) 67%, rgba(154,20,116,1) 86%) ;
+}
+
+#footer{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10%; 
+}
+#footer a{
+    font-size: 20;
+    margin-left: 30px;
+    color: white;
+}
+a:hover{
+    color: aquamarine !important;
+}
+
+#about-dev{
+    margin: 0 auto;
+    margin-top: 10%;
+    text-align: center;
+}
+#about-dev img{
+    object-fit: cover;
+    height: 400px;
+    width: 400px;
+}
+#content{
+    margin-top: 30px;
+    padding: 10px 40px 10px 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#content p{
+    max-width: 700px;
+    text-align: left;
+    line-height: 1.5;
+}
+#inner a{
+    margin-right: 30px;
+}
+#aboutreimage{
+    margin: 0 auto;
+    margin-top: 10%;
+    text-align: center;
+    max-width: 900px;
+}
+#aboutreimage p{
+    color: white;
+    line-height: 1.5;
+}
+
+.leave-message-container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 10%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: black;
+  }
+  
+  .message-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  input{
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+
+  }
+
+#message_part{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+  

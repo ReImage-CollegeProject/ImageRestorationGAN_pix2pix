@@ -1,0 +1,43 @@
+ #list-image{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 3%;
+    
+}
+
+#image-content{
+    display: flex;
+    flex-direction: column;
+    max-height: 350px;
+    justify-content: flex-start;
+    max-width: 400px;
+    text-align: center;
+    margin: 20px;
+}
+
+#image-content span{
+    background-color: white;
+    padding: 3px;
+    max-width: 400px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+#image-content img{
+    object-fit: cover;
+    max-height: 250px;
+    max-width: 400px;
+}
+#image-content button{
+    border-radius: 3px;
+    border: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: aquamarine;
+}
+
+#noimage{
+    margin-top: 30%;
+    color: white;
+}
