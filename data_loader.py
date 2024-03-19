@@ -4,7 +4,7 @@ import torch
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
-from config import BATCH_SIZE
+from config import BATCH_SIZE, NOISE_STD, BLUR_RADIUS
 
 
 from train_split import split_data
@@ -76,19 +76,15 @@ class BlurryDataset(Dataset):
 
     def __getitem__(self, idx):
         clean_image_name = os.path.join(self.root_dir, self.image_filenames[idx])
-        clean_image = Image.open(clean_image_name).convert("RGB")
+        clean_image = cv2.imread(clean_image_name)
+        clean_image = cv2.cvtColor(clean_image, cv2.COLOR_BGR2RGB)
 
         # Apply blur using cv2.blur
-        image_np = transforms.ToPILImage()(clean_image)  # Convert to PIL image
-        image_np = cv2.cvtColor(
-            np.array(image_np), cv2.COLOR_RGB2BGR
-        )  # Convert to numpy array in BGR format
-        blurry_image_np = cv2.blur(
-            image_np, (self.blur_radius, self.blur_radius)
-        )  # Apply blur
-        blurry_image = transforms.ToTensor()(blurry_image_np)  # Convert back to tensor
+        blurry_image = cv2.blur(clean_image, (self.blur_radius, self.blur_radius))
 
         if self.transform:
+            clean_image = transforms.ToPILImage()(clean_image)
+            blurry_image = transforms.ToPILImage()(blurry_image)
             clean_image = self.transform(clean_image)
             blurry_image = self.transform(blurry_image)
 
@@ -105,18 +101,68 @@ data_transform = transforms.Compose(
 )
 
 
-def create_train_dataloader():
+def create_blurry_train_dataloader():
+    #####################
+    # Train Dataloader
+    #####################
+    split_data()
+
+    train_dataset = BlurryDataset(
+        root_dir="./datasets/train/images/",
+        blur_radius=BLUR_RADIUS,
+        transform=data_transform,
+    )
+    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+
+    return train_loader
+
+
+def create_blurry_test_dataloader():
+    #####################
+    # Test Dataloader
+    #####################
+    split_data()
+
+    test_dataset = BlurryDataset(
+        root_dir="./datasets/test/images/",
+        blur_radius=BLUR_RADIUS,
+        transform=data_transform,
+    )
+    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=True)
+
+    return test_loader
+
+
+def create_noisy_train_dataloader():
     #####################
     # Train Dataloader
     #####################
     split_data()
 
     train_dataset = DenoisingDataset(
-        root_dir="./datasets/train/images/", noise_std=0.6, transform=data_transform
+        root_dir="./datasets/train/images/",
+        noise_std=NOISE_STD,
+        transform=data_transform,
     )
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
     return train_loader
+
+
+def create_noisy_test_dataloader():
+    #####################
+    # Test Dataloader
+    #####################
+    split_data()
+
+    test_dataset = DenoisingDataset(
+        root_dir="./datasets/test/images/",
+        noise_std=NOISE_STD,
+        transform=data_transform,
+    )
+    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=True)
+
+    return test_loader
 
 
 def create_test_dataloader():
@@ -134,14 +180,14 @@ def create_test_dataloader():
 
 
 if __name__ == "__main__":
-    test_loader = create_test_dataloader()
+    train_loader = create_noisy_train_dataloader()
     print(
         f"""
-    length of test loader : {len(test_loader)}
+    length of train loader : {len(train_loader)}
     """
     )
 
-    for noisy, clean in test_loader:
+    for noisy, clean in train_loader:
         print(f"Shape of noisy : {noisy.shape}")
         print(f"Shape of clean : {clean.shape}")
         break

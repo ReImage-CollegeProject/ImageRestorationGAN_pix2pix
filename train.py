@@ -1,4 +1,9 @@
 import torch
+from tqdm.auto import tqdm
+
+from criterion import GeneratorLoss, DiscriminatorLoss
+from data_loader import create_noisy_train_dataloader
+from models import UnetGenerator, Discriminator
 from config import DEVICE, EPOCHS, LR
 from utils import (
     save_samples,
@@ -6,10 +11,6 @@ from utils import (
     get_fixed_latent,
     save_batch_image,
 )
-from models import UnetGenerator, Discriminator
-from criterion import GeneratorLoss, DiscriminatorLoss
-from tqdm.auto import tqdm
-from data_loader import create_train_dataloader
 
 
 def train_discriminator(
@@ -98,10 +99,12 @@ def fit(
     # loading state_dict of the generator and discriminator
     # path to file is passed as argument
     if generator_state_dict_file:
+        print(f"{generator_state_dict_file} file available!!!")
         generator_state_dict = torch.load(generator_state_dict_file)
         generator.load_state_dict(generator_state_dict)
 
     if discriminator_state_dict_file:
+        print(f"{discriminator_state_dict_file} file available!!!\n\n")
         discriminator_state_dict = torch.load(discriminator_state_dict_file)
         discriminator.load_state_dict(discriminator_state_dict)
 
@@ -188,13 +191,14 @@ def fit(
             )
         # Save generated images
         save_samples(epoch + start_idx, generator, fixed_latent, show=False)
+        print("\n\n")
 
     return losses_g, losses_d, real_scores, fake_scores
 
 
 if __name__ == "__main__":
     torch.cuda.empty_cache()
-    train_dl = create_train_dataloader()
+    train_dl = create_noisy_train_dataloader()
     noisy_latent, clean_latent = get_fixed_latent()
 
     g_criterion = GeneratorLoss(alpha=100)
@@ -210,5 +214,7 @@ if __name__ == "__main__":
         d_criterion=d_criterion,
         start_idx=1,
         fixed_latent=noisy_latent,
+        generator_state_dict_file="./new_models/generator_epoch_40.pth",
+        discriminator_state_dict_file="./new_models/discriminator_epoch_40.pth",
     )
     print(history)

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from torchvision.transforms.functional import to_pil_image
 from torchvision.utils import save_image, make_grid
-from data_loader import create_test_dataloader
+from data_loader import create_noisy_train_dataloader
 from config import DEVICE
 
 
@@ -87,8 +87,7 @@ def save_batch_image(clean_images, noisy_images):
 
 
 def get_fixed_latent():
-    fixed_latent = None
-    for noisy, clean in create_test_dataloader():
+    for noisy, clean in create_noisy_train_dataloader():
         noisy_latent = noisy.to(DEVICE)
         clean_latent = clean.to(DEVICE)
         return noisy_latent, clean_latent
