@@ -1,4 +1,6 @@
 __pycache__/
-datasets/
 new_models/
 test_image/
+node_modules/
+collab_models/
+dataset_new/

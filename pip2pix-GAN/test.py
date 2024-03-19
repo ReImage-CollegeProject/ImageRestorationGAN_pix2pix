@@ -29,7 +29,8 @@ def load_model(model_path, model_arch):
     return model
 
 
-noisy_image_path = "./test_image/NIH-1.png"
+noisy_image_path = "./test_image/sujan_hency2.png"
+noisy_image_path = "/tmp/sujan_hency.png"
 original_image_path = "./test_image/original.jpg"
 noisy_image = Image.open(str(noisy_image_path))
 original_image = Image.open(str(original_image_path))
@@ -39,7 +40,7 @@ noisy_image = transform(noisy_image).unsqueeze(0)
 original_image = transform(original_image).unsqueeze(0)
 
 # load model
-model = load_model("./new_models/generator_epoch_40.pth", UnetGenerator)
+model = load_model("./collab_models/generator_epoch_40.pth", UnetGenerator)
 
 model.eval()
 with torch.inference_mode():
@@ -69,7 +70,7 @@ plt.axis("off")
 
 plt.subplot(1, 2, 2)
 plt.imshow(denorm(denoised_image).squeeze().permute(1, 2, 0))
-plt.title("Blur Photo")
+plt.title("Sujan Hency")
 plt.axis("off")
 
 plt.show()
